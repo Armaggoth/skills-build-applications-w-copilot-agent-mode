@@ -5,9 +5,10 @@ import { Activity, LeaderboardEntry, Team, User, Workout } from './models.js'
 const app = express()
 const port = 8000
 const codespaceName = process.env.CODESPACE_NAME
-const apiUrl = codespaceName
+const codespaceApiUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
-  : `http://localhost:${port}`
+  : undefined
+const apiUrl = codespaceApiUrl ?? `http://localhost:${port}`
 
 app.use(express.json())
 
