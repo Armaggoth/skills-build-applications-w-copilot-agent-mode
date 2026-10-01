@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { displayValue, fetchResource } from '../api.js'
 
-function ResourceList({ resource, title, description, columns }) {
+function ResourceList({ resource, endpoint, title, description, columns }) {
   const [records, setRecords] = useState([])
   const [status, setStatus] = useState('loading')
   const [error, setError] = useState('')
@@ -9,7 +9,7 @@ function ResourceList({ resource, title, description, columns }) {
   useEffect(() => {
     const controller = new AbortController()
 
-    fetchResource(resource, controller.signal)
+    fetchResource(endpoint, controller.signal)
       .then((items) => {
         setRecords(items)
         setStatus('success')
@@ -22,7 +22,7 @@ function ResourceList({ resource, title, description, columns }) {
       })
 
     return () => controller.abort()
-  }, [resource])
+  }, [endpoint])
 
   return (
     <section className="resource-page" aria-labelledby={`${resource}-title`}>
